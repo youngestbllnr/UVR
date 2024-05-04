@@ -105,10 +105,10 @@ class UVRWebUI:
         stem2_check_update = self.secondary_stem_only.update(
             label=f"{model.secondary_stem} Only"
         )
-        stem1_out_update = self.primary_stem_out.update(
+        stem1_out_update = self.primary_stem_outs.update(
             label=f"Output {model.primary_stem}"
         )
-        stem2_out_update = self.secondary_stem_out.update(
+        stem2_out_update = self.secondary_stem_outs.update(
             label=f"Output {model.secondary_stem}"
         )
 
