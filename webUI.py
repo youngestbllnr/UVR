@@ -189,8 +189,7 @@ class UVRWebUI:
                 msg += f"{seperator.primary_stem} saved at {primary_stem_path}"
             if not seperator.is_primary_stem_only:
                 secondary_stem_path = os.path.join(
-                    seperator.export_path,
-                    f"{seperator.audio_file_base}_({seperator.secondary_stem}).wav",
+                    f"{seperator.export_path}.wav",
                 )
                 audio, rate = soundfile.read(secondary_stem_path)
                 secondary_audio = (rate, audio)
