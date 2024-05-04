@@ -263,11 +263,12 @@ class UVRWebUI:
                         )
 
                     with gr.Row():
-                        self.audio_ins = gr.Audio(
+                        self.audio_ins = gr.File(
                             label="Input audios",
                             interactive=True,
                             type="filepath",
                             multiple=True,
+                            file_count="multiple",
                         )
                     with gr.Row():
                         self.process_submit = gr.Button(
