@@ -156,8 +156,12 @@ class UVRWebUI:
                 progress_curr = step + inference_iterations
                 progress(progress_curr)
 
-            sampling_rate, audio = input_audio.read()
-            audio = (audio / np.iinfo(audio.dtype).max).astype(np.float32)
+            sampling_rate, audio = soundfile.read(input_audio.name)
+            audio = (
+                (audio / np.iinfo(audio.dtype).max).astype(np.float32)
+                if audio.dtype != np.int32
+                else (audio / np.iinfo(np.int32).max).astype(np.float32)
+            )
             if len(audio.shape) > 1:
                 audio = librosa.to_mono(audio.transpose(1, 0))
             input_path = os.path.join(self.input_temp_dir, input_filename)
