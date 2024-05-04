@@ -609,7 +609,7 @@ class Ensembler:
         stem_outputs = self.get_files_to_ensemble(
             folder=export_path, prefix=audio_file_base, suffix=f"_({stem_tag}).wav"
         )
-        audio_file_output = f"{self.is_testing_audio}{audio_file_base.split('_')[1]}"
+        audio_file_output = f"{self.is_testing_audio}{audio_file_base}{self.chosen_ensemble}_({stem_tag})"
         stem_save_path = os.path.join(
             "{}".format(self.main_export_path), "{}.wav".format(audio_file_output)
         )
