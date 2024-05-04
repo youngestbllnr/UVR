@@ -380,7 +380,7 @@ for category, models in model_dict.items():
             cmd = f"aria2c --optimize-concurrent-downloads --summary-interval=10 -j5 -x16 -s16 -k1M -c -q -d {model_path} -Z {model_url}"
             os.system(cmd)
 
-print("Models downloaded successfully!!!")
+print("Models downloaded successfully!")
 print("Starting WebUI...")
 webui = UVRWebUI(uvr, online_data_path="models/download_checks.json")
 webui.launch(share=True)
