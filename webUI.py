@@ -148,16 +148,16 @@ class UVRWebUI:
     ):
         results = []
         for input_audio in input_audios:
-            input_filename = (
-                input_audio.name
-            )  # Accessing the filename directly from the TemporaryFileWrapper object
+            input_filename = input_audio.name.split("/")[
+                -1
+            ]  # Accessing the filename directly from the TemporaryFileWrapper object
 
             def set_progress_func(step, inference_iterations=0):
                 progress_curr = step + inference_iterations
                 progress(progress_curr)
 
-            sampling_rate, audio = librosa.load(input_audio.name, sr=None)
-            print("Audio:", input_audio)
+            sampling_rate, audio = soundfile.read(input_audio.name)
+            print("Audio:", soundfile.read(input_audio.name))
             print("Audio name:", input_audio.name)
             print("Audio type:", type(audio))
             print(
