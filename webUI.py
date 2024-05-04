@@ -209,7 +209,7 @@ class UVRWebUI:
 
             os.remove(input_path)
             results.append((primary_audio, secondary_audio, msg))
-        return results
+        return results, f"Processed {results.__len__()} files!"
 
     def define_layout(self):
         with gr.Blocks() as app:
@@ -279,14 +279,7 @@ class UVRWebUI:
                             START_PROCESSING, variant="primary"
                         )
                     with gr.Row():
-                        self.primary_stem_out = gr.Audio(
-                            label=f"Output {PRIMARY_STEM}", interactive=False
-                        )
-                        self.secondary_stem_out = gr.Audio(
-                            label=f"Output {SECONDARY_STEM}", interactive=False
-                        )
-                    with gr.Row():
-                        self.out_message = gr.Textbox(
+                        self.output_message = gr.Textbox(
                             label="Output Message",
                             interactive=False,
                             show_progress=False,
@@ -343,11 +336,7 @@ class UVRWebUI:
                     self.arch_setting1,
                     self.arch_setting2,
                 ],
-                outputs=[
-                    self.primary_stem_out,
-                    self.secondary_stem_out,
-                    self.out_message,
-                ],
+                outputs=[self.results, self.output_message],
             )
 
     def launch(self, **kwargs):
