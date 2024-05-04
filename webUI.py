@@ -202,7 +202,7 @@ class UVRWebUI:
             os.remove(input_path)
             results.append((primary_audio, secondary_audio, msg))
         all_messages = "\n".join([result[2] for result in results])
-        return results, all_messages
+        return all_messages
 
     def define_layout(self):
         with gr.Blocks() as app:
@@ -324,7 +324,7 @@ class UVRWebUI:
                     self.arch_setting1,
                     self.arch_setting2,
                 ],
-                outputs=[self.results, self.output_message],
+                outputs=[self.output_message],
             )
 
     def launch(self, **kwargs):
