@@ -156,7 +156,7 @@ class UVRWebUI:
                 progress_curr = step + inference_iterations
                 progress(progress_curr)
 
-            sampling_rate, audio = soundfile.read(input_audio.name)
+            sampling_rate, audio = input_audio.read()
             audio = (audio / np.iinfo(audio.dtype).max).astype(np.float32)
             if len(audio.shape) > 1:
                 audio = librosa.to_mono(audio.transpose(1, 0))
