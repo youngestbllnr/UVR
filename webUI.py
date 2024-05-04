@@ -156,7 +156,7 @@ class UVRWebUI:
                 progress_curr = step + inference_iterations
                 progress(progress_curr)
 
-            audio, sampling_rate = soundfile.read(input_audio.name)
+            audio, sampling_rate = librosa.load(input_audio.name, sr=None)
             if audio.dtype.kind == "i":  # Check if the audio data type is integer
                 audio = (audio / np.iinfo(audio.dtype).max).astype(np.float32)
             else:
@@ -187,7 +187,7 @@ class UVRWebUI:
                 )
                 audio, rate = soundfile.read(primary_stem_path)
                 primary_audio = (rate, audio)
-                msg += f"{seperator.primary_stem} saved at {primary_stem_path}\n"
+                msg += f"{seperator.primary_stem} saved at {primary_stem_path}"
             if not seperator.is_primary_stem_only:
                 secondary_stem_path = os.path.join(
                     seperator.export_path,
@@ -195,13 +195,13 @@ class UVRWebUI:
                 )
                 audio, rate = soundfile.read(secondary_stem_path)
                 secondary_audio = (rate, audio)
-                msg += f"{seperator.secondary_stem} saved at {secondary_stem_path}\n"
+                msg += f"{seperator.secondary_stem} saved at {secondary_stem_path}"
 
             os.remove(input_path)
 
             results.append((primary_audio, secondary_audio, msg))
         messages = [result[2] for result in results]
-        return messages
+        return messages.join("\n")
 
     def define_layout(self):
         with gr.Blocks() as app:
