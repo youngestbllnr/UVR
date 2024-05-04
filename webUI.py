@@ -209,7 +209,8 @@ class UVRWebUI:
 
             os.remove(input_path)
             results.append((primary_audio, secondary_audio, msg))
-        return results, f"Processed {results.__len__()} files!"
+        all_messages = "\n".join([result[2] for result in results])
+        return results, all_messages
 
     def define_layout(self):
         with gr.Blocks() as app:
