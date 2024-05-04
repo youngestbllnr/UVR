@@ -157,7 +157,10 @@ class UVRWebUI:
                 progress(progress_curr)
 
             audio, sampling_rate = soundfile.read(input_audio.name)
-            audio = (audio / np.iinfo(audio.dtype).max).astype(np.float32)
+            if audio.dtype.kind == "i":  # Check if the audio data type is integer
+                audio = (audio / np.iinfo(audio.dtype).max).astype(np.float32)
+            else:
+                audio = audio.astype(np.float32)
             if len(audio.shape) > 1:
                 audio = librosa.to_mono(audio.transpose(1, 0))
             input_path = os.path.join(self.input_temp_dir, input_filename)
