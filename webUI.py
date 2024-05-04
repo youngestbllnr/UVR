@@ -266,7 +266,7 @@ class UVRWebUI:
                         self.audio_ins = gr.Audio(
                             label="Input audios",
                             interactive=True,
-                            type="file",
+                            type="filepath",
                             multiple=True,
                         )
                     with gr.Row():
