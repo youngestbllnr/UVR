@@ -105,18 +105,10 @@ class UVRWebUI:
         stem2_check_update = self.secondary_stem_only.update(
             label=f"{model.secondary_stem} Only"
         )
-        stem1_out_update = self.primary_stem_out.update(
-            label=f"Output {model.primary_stem}"
-        )
-        stem2_out_update = self.secondary_stem_out.update(
-            label=f"Output {model.secondary_stem}"
-        )
 
         return [
             stem1_check_update,
             stem2_check_update,
-            stem1_out_update,
-            stem2_out_update,
         ]
 
     def checkbox_set_root_value(self, checkbox: gr.Checkbox, root_attr: str):
@@ -310,12 +302,7 @@ class UVRWebUI:
             self.model_choice.change(
                 self.model_select_update,
                 inputs=[self.arch_choice, self.model_choice],
-                outputs=[
-                    self.primary_stem_only,
-                    self.secondary_stem_only,
-                    self.primary_stem_out,
-                    self.secondary_stem_out,
-                ],
+                outputs=[self.primary_stem_only, self.secondary_stem_only],
             )
 
             self.checkbox_set_root_value(self.use_gpu, "is_gpu_conversion_var")
