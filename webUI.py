@@ -154,7 +154,6 @@ class UVRWebUI:
     def process(
         self,
         input_audios,
-        input_filenames,
         model_name,
         arch,
         setting1,
@@ -162,7 +161,9 @@ class UVRWebUI:
         progress=gr.Progress(),
     ):
         results = []
-        for input_audio, input_filename in zip(input_audios, input_filenames):
+        for input_audio, input_filename in zip(
+            input_audios, [file.name for file in input_audios]
+        ):
 
             def set_progress_func(step, inference_iterations=0):
                 progress_curr = step + inference_iterations
@@ -266,10 +267,6 @@ class UVRWebUI:
                         )
 
                     with gr.Row():
-                        self.input_filenames = gr.Textbox(
-                            label="Input filenames", value="temp.wav", interactive=True
-                        )
-                    with gr.Row():
                         self.audio_in = gr.File(
                             label="Input audio",
                             interactive=True,
@@ -341,7 +338,6 @@ class UVRWebUI:
                 self.process,
                 inputs=[
                     self.audio_in,
-                    self.input_filenames,
                     self.model_choice,
                     self.arch_choice,
                     self.arch_setting1,
