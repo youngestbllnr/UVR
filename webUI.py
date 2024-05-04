@@ -105,18 +105,10 @@ class UVRWebUI:
         stem2_check_update = self.secondary_stem_only.update(
             label=f"{model.secondary_stem} Only"
         )
-        stem1_out_update = self.primary_stem_outs.update(
-            label=f"Output {model.primary_stem}"
-        )
-        stem2_out_update = self.secondary_stem_outs.update(
-            label=f"Output {model.secondary_stem}"
-        )
 
         return [
             stem1_check_update,
             stem2_check_update,
-            stem1_out_update,
-            stem2_out_update,
         ]
 
     def checkbox_set_root_value(self, checkbox: gr.Checkbox, root_attr: str):
@@ -156,9 +148,9 @@ class UVRWebUI:
     ):
         results = []
         for input_audio in input_audios:
-            input_filename = input_audio[
-                1
-            ]  # Gradio passes filename as second element in tuple
+            input_filename = (
+                input_audio.name
+            )  # Accessing the filename directly from the TemporaryFileWrapper object
 
             def set_progress_func(step, inference_iterations=0):
                 progress_curr = step + inference_iterations
@@ -205,7 +197,8 @@ class UVRWebUI:
             os.remove(input_path)
 
             results.append((primary_audio, secondary_audio, msg))
-        return results
+        messages = [result[2] for result in results]
+        return messages
 
     def define_layout(self):
         with gr.Blocks() as app:
@@ -275,17 +268,6 @@ class UVRWebUI:
                             START_PROCESSING, variant="primary"
                         )
                     with gr.Row():
-                        self.primary_stem_outs = gr.Audio(
-                            label=f"Output {PRIMARY_STEM}",
-                            interactive=False,
-                            multiple=True,
-                        )
-                        self.secondary_stem_outs = gr.Audio(
-                            label=f"Output {SECONDARY_STEM}",
-                            interactive=False,
-                            multiple=True,
-                        )
-                    with gr.Row():
                         self.out_messages = gr.Textbox(
                             label="Output Messages",
                             interactive=False,
@@ -319,8 +301,6 @@ class UVRWebUI:
                 outputs=[
                     self.primary_stem_only,
                     self.secondary_stem_only,
-                    self.primary_stem_outs,
-                    self.secondary_stem_outs,
                 ],
             )
 
@@ -344,8 +324,6 @@ class UVRWebUI:
                     self.arch_setting2,
                 ],
                 outputs=[
-                    self.primary_stem_outs,
-                    self.secondary_stem_outs,
                     self.out_messages,
                 ],
             )
