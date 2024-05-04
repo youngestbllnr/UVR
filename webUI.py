@@ -156,7 +156,9 @@ class UVRWebUI:
                 progress_curr = step + inference_iterations
                 progress(progress_curr)
 
-            sampling_rate, audio = soundfile.read(input_audio.name)
+            sampling_rate, audio = librosa.load(input_audio.name, sr=None)
+            print("Audio:", input_audio)
+            print("Audio name:", input_audio.name)
             print("Audio type:", type(audio))
             print(
                 "Audio shape:", audio.shape if hasattr(audio, "shape") else "No shape"
