@@ -935,9 +935,7 @@ class UVRInterface:
             audio_file_base = f"{audio_file_base}_{model.model_basename}"
 
         if not is_ensemble:
-            export_path = os.path.join(
-                Path(export_path), f"{time.strftime('%Y%m%d_%H%M%S')}"
-            )
+            export_path = os.path.join(Path(export_path), f"{time.strftime('%Y%m%d')}")
             if not os.path.isdir(export_path):
                 os.makedirs(export_path)
 
