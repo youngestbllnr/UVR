@@ -218,14 +218,14 @@ class UVRWebUI:
                         self.model_choice = gr.Dropdown(
                             choices=self.get_local_models(VR_ARCH_TYPE),
                             value=CHOOSE_MODEL,
-                            label=SELECT_VR_MODEL_MAIN_LABEL + " 👋Select a model",
+                            label=SELECT_VR_MODEL_MAIN_LABEL,
                             interactive=True,
                         )
                     with gr.Row():
                         self.arch_setting1 = gr.Dropdown(
                             choices=VR_WINDOW,
                             value=root.window_size_var.get(),
-                            label=WINDOW_SIZE_MAIN_LABEL + " 👋Select one",
+                            label=WINDOW_SIZE_MAIN_LABEL,
                             interactive=True,
                         )
                         self.arch_setting2 = gr.Dropdown(
@@ -263,7 +263,6 @@ class UVRWebUI:
                             label="Input audios",
                             interactive=True,
                             type="file",
-                            multiple=True,
                             file_count="multiple",
                         )
                     with gr.Row():
