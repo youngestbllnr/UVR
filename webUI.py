@@ -271,7 +271,6 @@ class UVRWebUI:
                         self.out_messages = gr.Textbox(
                             label="Output Messages",
                             interactive=False,
-                            show_progress=False,
                         )
 
                 with gr.TabItem("Settings"):
